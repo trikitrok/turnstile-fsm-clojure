@@ -2,11 +2,11 @@
   (:require
     [turnstile.control :as control]))
 
-(defn pass [state controller]
-  (if (= state :locked)
-    (control/sound-alarm! controller)
-    (control/lock! controller))
-  :locked)
+(defn pass [state turnstile]
+  (if (= (:state turnstile) :locked)
+    (control/sound-alarm! turnstile)
+    (control/lock! turnstile))
+  (assoc turnstile :state :locked))
 
 (defn insert-coin [state amount controller]
   (control/store! controller amount)

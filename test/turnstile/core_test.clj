@@ -26,9 +26,9 @@
     "when locked"
     (fact
       "passing makes the alarm sound"
-      (let [turnstile (->FakeTurnstile)]
+      (let [turnstile (assoc (->FakeTurnstile) :state :locked)]
 
-        (pass :locked turnstile) => :locked
+        (:state (pass :locked turnstile)) => :locked
 
         (provided
           (sound-alarm! turnstile) => irrelevant :times 1)))
@@ -46,8 +46,8 @@
     "when unlocked"
     (fact
       "passing locks the turnstile"
-      (let [turnstile (->FakeTurnstile)]
-        (pass :unlocked turnstile) => :locked
+      (let [turnstile  (assoc (->FakeTurnstile) :state :unlocked)]
+        (:state (pass :unlocked turnstile)) => :locked
 
         (provided
           (lock! turnstile) => irrelevant :times 1)))
