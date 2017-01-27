@@ -11,8 +11,8 @@
 (unfinished lock!)
 (unfinished thank-you!)
 
-(defrecord-openly FakeTurnstileController []
-  control/TurnstileController
+(defrecord-openly FakeTurnstile []
+  control/Turnstile
   (sound-alarm! [this])
   (store! [this amount])
   (unlock! [this])
@@ -26,37 +26,37 @@
     "when locked"
     (fact
       "passing makes the alarm sound"
-      (let [fake-controller (->FakeTurnstileController)]
+      (let [turnstile (->FakeTurnstile)]
 
-        (pass :locked fake-controller) => :locked
+        (pass :locked turnstile) => :locked
 
         (provided
-          (sound-alarm! fake-controller) => irrelevant :times 1)))
+          (sound-alarm! turnstile) => irrelevant :times 1)))
 
     (fact
       "inserting a coin unlocks the turnstile"
-      (let [fake-controller (->FakeTurnstileController)]
-        (insert-coin :locked ..some-amount.. fake-controller) => :unlocked
+      (let [turnstile (->FakeTurnstile)]
+        (insert-coin :locked ..some-amount.. turnstile) => :unlocked
 
         (provided
-          (unlock! fake-controller) => irrelevant :times 1
-          (store! fake-controller ..some-amount..) => irrelevant :times 1))))
+          (unlock! turnstile) => irrelevant :times 1
+          (store! turnstile ..some-amount..) => irrelevant :times 1))))
 
   (facts
     "when unlocked"
     (fact
       "passing locks the turnstile"
-      (let [fake-controller (->FakeTurnstileController)]
-        (pass :unlocked fake-controller) => :locked
+      (let [turnstile (->FakeTurnstile)]
+        (pass :unlocked turnstile) => :locked
 
         (provided
-          (lock! fake-controller) => irrelevant :times 1)))
+          (lock! turnstile) => irrelevant :times 1)))
 
     (fact
       "inserting a coin makes the turnstile thank you"
-      (let [fake-controller (->FakeTurnstileController)]
-        (insert-coin :unlocked ..some-amount.. fake-controller) => :unlocked
+      (let [turnstile (->FakeTurnstile)]
+        (insert-coin :unlocked ..some-amount.. turnstile) => :unlocked
 
         (provided
-          (thank-you! fake-controller) => irrelevant :times 1
-          (store! fake-controller ..some-amount..) => irrelevant :times 1)))))
+          (thank-you! turnstile) => irrelevant :times 1
+          (store! turnstile ..some-amount..) => irrelevant :times 1)))))
