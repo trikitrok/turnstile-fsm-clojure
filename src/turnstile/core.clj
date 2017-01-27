@@ -3,7 +3,9 @@
     [turnstile.control :as control]))
 
 (defn pass [state controller]
-  (control/sound-alarm! controller)
+  (if (= state :locked)
+    (control/sound-alarm! controller)
+    (control/lock! controller))
   :locked)
 
 (defn insert-coin [state amount controller]

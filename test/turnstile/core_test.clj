@@ -8,19 +8,20 @@
 (unfinished sound-alarm!)
 (unfinished store!)
 (unfinished unlock!)
+(unfinished lock!)
 
 (defrecord-openly FakeTurnstileController []
   control/TurnstileController
   (sound-alarm! [this])
   (store! [this amount])
-  (unlock! [this]))
+  (unlock! [this])
+  (lock! [this]))
 
 (facts
-  "about turnstile"
+  "about a turnstile"
 
   (facts
     "when locked"
-
     (fact
       "passing makes the alarm sound"
       (let [fake-controller (->FakeTurnstileController)]
@@ -37,4 +38,14 @@
 
         (provided
           (unlock! fake-controller) => irrelevant :times 1
-          (store! fake-controller ..some-amount..) => irrelevant :times 1)))))
+          (store! fake-controller ..some-amount..) => irrelevant :times 1))))
+
+  (facts
+    "when unlocked"
+    (fact
+      "passing locks the turnstile"
+      (let [fake-controller (->FakeTurnstileController)]
+        (pass :unlocked fake-controller) => :locked
+
+        (provided
+          (lock! fake-controller) => irrelevant :times 1)))))

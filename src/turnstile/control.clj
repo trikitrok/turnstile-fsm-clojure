@@ -3,4 +3,5 @@
 (defprotocol TurnstileController
   (sound-alarm! [this])
   (store! [this amount])
-  (unlock! [this]))
+  (unlock! [this])
+  (lock! [this]))
