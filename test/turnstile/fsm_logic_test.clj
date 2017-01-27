@@ -2,8 +2,7 @@
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
-    [turnstile.fsm-logic :refer [pass insert-coin locked? unlocked?]]
-    [turnstile.control :as control]))
+    [turnstile.fsm-logic :refer [pass insert-coin locked? unlocked? Turnstile]]))
 
 (unfinished sound-alarm!)
 (unfinished store!)
@@ -12,7 +11,7 @@
 (unfinished thank-you!)
 
 (defrecord-openly FakeTurnstile []
-  control/Turnstile
+  Turnstile
   (sound-alarm! [this])
   (store! [this amount])
   (unlock! [this])

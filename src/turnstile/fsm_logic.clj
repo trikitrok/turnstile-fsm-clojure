@@ -1,6 +1,11 @@
-(ns turnstile.fsm-logic
-  (:require
-    [turnstile.control :as control]))
+(ns turnstile.fsm-logic)
+
+(defprotocol Turnstile
+  (sound-alarm! [this])
+  (store! [this amount])
+  (unlock! [this])
+  (lock! [this])
+  (thank-you! [this]))
 
 (defn locked? [turnstile]
   (= (:state turnstile) :locked))
@@ -9,13 +14,13 @@
 
 (defn pass [turnstile]
   (if (locked? turnstile)
-    (control/sound-alarm! turnstile)
-    (control/lock! turnstile))
+    (sound-alarm! turnstile)
+    (lock! turnstile))
   (assoc turnstile :state :locked))
 
 (defn insert-coin [turnstile amount]
-  (control/store! turnstile amount)
+  (store! turnstile amount)
   (if (locked? turnstile)
-    (control/unlock! turnstile)
-    (control/thank-you! turnstile))
+    (unlock! turnstile)
+    (thank-you! turnstile))
   (assoc turnstile :state :unlocked))
