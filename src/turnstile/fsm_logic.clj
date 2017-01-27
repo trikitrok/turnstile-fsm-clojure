@@ -1,6 +1,6 @@
 (ns turnstile.fsm-logic)
 
-(defprotocol Turnstile
+(defprotocol TurnstileActions
   (sound-alarm! [this])
   (store! [this amount])
   (unlock! [this])
