@@ -2,7 +2,7 @@
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
-    [turnstile.fsm-logic :refer [pass insert-coin]]
+    [turnstile.fsm-logic :refer [pass insert-coin locked? unlocked?]]
     [turnstile.control :as control]))
 
 (unfinished sound-alarm!)
@@ -27,7 +27,7 @@
     (fact
       "passing makes the alarm sound"
       (let [turnstile (assoc (->FakeTurnstile) :state :locked)]
-        (:state (pass turnstile)) => :locked
+        (locked? (pass turnstile)) => true
 
         (provided
           (sound-alarm! turnstile) => irrelevant :times 1)))
@@ -35,7 +35,7 @@
     (fact
       "inserting a coin unlocks the turnstile"
       (let [turnstile (assoc (->FakeTurnstile) :state :locked)]
-        (:state (insert-coin turnstile ..some-amount..)) => :unlocked
+        (unlocked? (insert-coin turnstile ..some-amount..)) => true
 
         (provided
           (unlock! turnstile) => irrelevant :times 1
@@ -46,7 +46,7 @@
     (fact
       "passing locks the turnstile"
       (let [turnstile  (assoc (->FakeTurnstile) :state :unlocked)]
-        (:state (pass turnstile)) => :locked
+        (locked? (pass turnstile)) => true
 
         (provided
           (lock! turnstile) => irrelevant :times 1)))
@@ -54,7 +54,7 @@
     (fact
       "inserting a coin makes the turnstile thank you"
       (let [turnstile (assoc (->FakeTurnstile) :state :unlocked)]
-        (:state (insert-coin turnstile ..some-amount..)) => :unlocked
+        (unlocked? (insert-coin turnstile ..some-amount..)) => true
 
         (provided
           (thank-you! turnstile) => irrelevant :times 1

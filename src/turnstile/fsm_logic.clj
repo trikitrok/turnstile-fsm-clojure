@@ -2,8 +2,10 @@
   (:require
     [turnstile.control :as control]))
 
-(defn- locked? [turnstile]
+(defn locked? [turnstile]
   (= (:state turnstile) :locked))
+
+(def unlocked? (complement locked?))
 
 (defn pass [turnstile]
   (if (locked? turnstile)
