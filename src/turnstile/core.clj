@@ -8,9 +8,9 @@
     (control/lock! turnstile))
   (assoc turnstile :state :locked))
 
-(defn insert-coin [state amount controller]
-  (control/store! controller amount)
-  (if (= state :locked)
-    (control/unlock! controller)
-    (control/thank-you! controller))
-  :unlocked)
+(defn insert-coin [turnstile amount]
+  (control/store! turnstile amount)
+  (if (= (:state turnstile) :locked)
+    (control/unlock! turnstile)
+    (control/thank-you! turnstile))
+  (assoc turnstile :state :unlocked))
