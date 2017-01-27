@@ -1,6 +1,6 @@
 # turnstile
 
-A simple FSM in Clojure using mutual recursion and trampoline.
+A simple FSM in Clojure to practice outside-in TDD with Midje.
 
 ## How to run the tests
 
