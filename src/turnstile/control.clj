@@ -1,4 +1,6 @@
 (ns turnstile.control)
 
 (defprotocol TurnstileController
-  (sound-alarm! [this]))
+  (sound-alarm! [this])
+  (store! [this amount])
+  (unlock! [this]))
