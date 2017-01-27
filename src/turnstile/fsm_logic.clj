@@ -1,4 +1,4 @@
-(ns turnstile.core
+(ns turnstile.fsm-logic
   (:require
     [turnstile.control :as control]))
 

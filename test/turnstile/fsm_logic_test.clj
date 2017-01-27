@@ -1,8 +1,8 @@
-(ns turnstile.core-test
+(ns turnstile.fsm-logic-test
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
-    [turnstile.core :refer [pass insert-coin]]
+    [turnstile.fsm-logic :refer [pass insert-coin]]
     [turnstile.control :as control]))
 
 (unfinished sound-alarm!)
