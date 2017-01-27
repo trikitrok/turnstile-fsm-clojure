@@ -4,4 +4,5 @@
   (sound-alarm! [this])
   (store! [this amount])
   (unlock! [this])
-  (lock! [this]))
+  (lock! [this])
+  (thank-you! [this]))

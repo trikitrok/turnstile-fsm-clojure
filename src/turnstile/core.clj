@@ -10,5 +10,7 @@
 
 (defn insert-coin [state amount controller]
   (control/store! controller amount)
-  (control/unlock! controller)
+  (if (= state :locked)
+    (control/unlock! controller)
+    (control/thank-you! controller))
   :unlocked)
