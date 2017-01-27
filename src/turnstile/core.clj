@@ -2,7 +2,7 @@
   (:require
     [turnstile.control :as control]))
 
-(defn pass [state turnstile]
+(defn pass [turnstile]
   (if (= (:state turnstile) :locked)
     (control/sound-alarm! turnstile)
     (control/lock! turnstile))
